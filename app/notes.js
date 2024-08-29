@@ -1,9 +1,11 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
+
+import { startAudioContext } from "./utils/audioUtils";
 import pitchDetection from "./utils/pitchDetection";
 import styles from "./page.module.css";
-import dynamic from "next/dynamic";
 
 // import canvas with SSR false to disable server-side rendering
 const Canvas = dynamic(() => import("./canvas"), {
@@ -32,7 +34,7 @@ const Notes = () => {
   }, []);
 
   const startPitch = (stream, audioContext) => {
-    startAudioContext(); // uses our helper function for audio input
+    startAudioContext(audioContext); // uses our helper function for audio input
     if (audioContext) {
       pitch = pitchDetection("./model/", audioContext, stream, modelLoaded);
     } else {
@@ -65,24 +67,6 @@ const Notes = () => {
 };
 
 // ---------------------------- HELPER FUNCTIONS ----------------------------
-/*  
- name: startAudioContext
-input: none
- desc: provides user to allow for audio input on the web
-*/
-function startAudioContext() {
-  if (audioContext) {
-    // if the AudioContext is already created, resume it
-    audioContext.resume();
-  } else {
-    // create and start the AudioContext from browser
-    audioContext = new (window.AudioContext ||
-      window.webkitAudioContext ||
-      window.mozAudioContext ||
-      window.oAudioContext ||
-      window.msAudioContext)();
-  }
-}
 
 /*  
  name: freqToMidi
