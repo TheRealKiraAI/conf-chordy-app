@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 
-import { startAudioContext } from "./utils/audioUtils";
+import { freqToMidi, startAudioContext } from "./utils/audioUtils";
 import pitchDetection from "./utils/pitchDetection";
 import styles from "./page.module.css";
 
@@ -65,18 +65,5 @@ const Notes = () => {
     </div>
   );
 };
-
-// ---------------------------- HELPER FUNCTIONS ----------------------------
-
-/*  
- name: freqToMidi
-input: f (frequency)
- desc: converts frequency input from audio to a MIDI number
-*/
-function freqToMidi(f) {
-  const mathlog2 = Math.log(f / 440) / Math.log(2);
-  const m = Math.round(12 * mathlog2) + 69;
-  return m;
-}
 
 export default Notes;
