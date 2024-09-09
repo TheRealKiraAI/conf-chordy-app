@@ -3,14 +3,19 @@
 import dynamic from "next/dynamic";
 import React from "react";
 
+import usePitchDetection from "./utils/usePitchDetection";
+
 const Canvas = dynamic(() => import("./canvas"), {
   ssr: false,
 });
 
 const Notes = () => {
+  const detectedNote = usePitchDetection();
+
   return (
     <div>
-      <h1>Hello, Netlify Conf!</h1>
+      <p>Detected Note: {detectedNote}</p>
+      <Canvas note={detectedNote} />
     </div>
   );
 };

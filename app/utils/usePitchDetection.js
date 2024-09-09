@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { freqToMidi, startAudioContext } from "./audioUtils";
+import pitchDetection from "./pitchDetection";
+
+const scale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
 /*
  * name: pitchDetection is a function that takes in a model path, audioContext, and stream, and returns a pitchDetection object
@@ -22,7 +25,7 @@ const usePitchDetection = () => {
         audio: true,
         video: false,
       });
-      // ----------> start audio <----------
+      startPitch(stream, audioContext);
     };
     setup();
   }, []);
@@ -31,7 +34,14 @@ const usePitchDetection = () => {
    *  name: startPitch is a function that takes in the stream and audioContext and calls the pitchDetection function
    * input: stream, audioContext
    */
-  // ----------> start pitch detection <----------
+  const startPitch = (stream, audioContext) => {
+    startAudioContext(audioContext);
+    if (audioContext) {
+      pitch = pitchDetection("./model/", audioContext, stream, modelLoaded);
+    } else {
+      console.log("AudioContext or mic not initialized.");
+    }
+  };
 
   /*
    * callback that triggers the getPitch function WHEN the model is loaded.
