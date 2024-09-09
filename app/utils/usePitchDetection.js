@@ -14,8 +14,8 @@ const usePitchDetection = () => {
         audio: true,
         video: false,
       });
+      startPitch(stream, audioContext);
     };
-
     setup();
   }, []);
 
@@ -23,6 +23,7 @@ const usePitchDetection = () => {
    *  name: startPitch is a function that takes in the stream and audioContext and calls the pitchDetection function
    * input: stream, audioContext
    */
+  // ----------> start pitch detection <----------
 
   const modelLoaded = () => {
     getPitch();
