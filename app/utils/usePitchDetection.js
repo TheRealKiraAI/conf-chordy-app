@@ -1,8 +1,27 @@
 import { useEffect, useState } from "react";
-import { freqToMidi, startAudioContext } from "./audioUtils";
+import {
+  freqToMidi,
+  startAudioContext
+} from "./audioUtils";
+
+const scale = [
+  "C",
+  "C#",
+  "D",
+  "D#",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#",
+  "A",
+  "A#",
+  "B"
+];
 
 const usePitchDetection = () => {
-  const [detectedNote, setDetectedNote] = useState("");
+  const [detectedNote, setDetectedNote] =
+    useState("");
   let audioContext;
   let pitch;
   let stream;
@@ -10,10 +29,13 @@ const usePitchDetection = () => {
   useEffect(() => {
     const setup = async () => {
       audioContext = new AudioContext();
-      stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: false,
-      });
+      stream =
+        await navigator.mediaDevices.getUserMedia(
+          {
+            audio: true,
+            video: false
+          }
+        );
       // ----------> start audio <----------
     };
     setup();

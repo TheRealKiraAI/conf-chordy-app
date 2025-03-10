@@ -4,13 +4,13 @@ import dynamic from "next/dynamic";
 import React from "react";
 
 const Canvas = dynamic(() => import("./canvas"), {
-  ssr: false,
+  ssr: false
 });
 
 const Notes = () => {
   return (
     <div>
-      <h1>Hello, Netlify Conf!</h1>
+      <h1>Hello, Epic Web Conf!</h1>
     </div>
   );
 };
